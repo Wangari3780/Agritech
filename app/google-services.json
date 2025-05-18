@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "390665430493",
+    "project_id": "agritech-31bdb",
+    "storage_bucket": "agritech-31bdb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390665430493:android:10a53b802739a9f7504234",
+        "android_client_info": {
+          "package_name": "com.wangari.agritech"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW96i4Xwzgu9EIIJLZx65labCaeGBcASU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
