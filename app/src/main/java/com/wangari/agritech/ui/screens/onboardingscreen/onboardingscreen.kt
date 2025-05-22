@@ -46,19 +46,19 @@ fun OnboardingScreen(
             imageResId = R.drawable.onboarding_welcome
         ),
         OnboardingPage(
-            title = "Farm Records Management",
+            title = "",
             description = "Keep track of your harvests, expenses, and inventory - even when offline.",
             imageResId = R.drawable.onboarding_records
         ),
         OnboardingPage(
             title = "Market Insights",
             description = "Access real-time market prices and trends to make informed decisions about when to sell.",
-            imageResId = R.drawable.onboarding_market
+            imageResId = R.drawable.img
         ),
         OnboardingPage(
             title = "Sell Your Produce",
             description = "Connect directly with buyers through our marketplace and complete transactions with M-Pesa.",
-            imageResId = R.drawable.onboarding_sell
+            imageResId = R.drawable.onboarding_records
         )
     )
 
@@ -168,15 +168,6 @@ fun OnboardingPageContent(page: OnboardingPage) {
         )
 
         Spacer(modifier = Modifier.height(32.dp))
-
-        // Title
-        Text(
-            text = page.title,
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary,
-            textAlign = TextAlign.Center
-        )
 
         Spacer(modifier = Modifier.height(16.dp))
 

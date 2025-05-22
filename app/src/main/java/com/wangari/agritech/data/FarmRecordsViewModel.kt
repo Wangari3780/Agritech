@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wangari.agritech.models.Harvest
 import com.wangari.agritech.models.Inventory
-import com.wangari.agritech.models.InventoryCategory
 import com.wangari.agritech.repositories.FarmRecordsRepository
 import com.wangari.agritech.repositories.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.Date
+//import com.wangari.agritech.models.
 
 class FarmRecordsViewModel : ViewModel() {
     private val farmRecordsRepository = FarmRecordsRepository()
@@ -94,10 +94,10 @@ class FarmRecordsViewModel : ViewModel() {
 
     fun addExpense(
         farmId: String,
-        category: ExpenseCategory,
+        Category: ExpenseCategory,
         amount: Double,
         description: String,
-        date: Date,
+        Dates: Date,
         receiptPhoto: String? = null
     ) {
         val currentUser = userRepository.getCurrentUser() ?: return
@@ -105,10 +105,10 @@ class FarmRecordsViewModel : ViewModel() {
         val expense = Expense(
             userId = currentUser.uid,
             farmId = farmId,
-            category = category,
+            Category = Category,
             amount = amount,
             description = description,
-            date = date,
+            Dates = Dates,
             receiptPhoto = receiptPhoto,
             createdAt = Date()
         )
@@ -171,7 +171,7 @@ class FarmRecordsViewModel : ViewModel() {
 
     fun addInventoryItem(
         itemName: String,
-        category: InventoryCategory,
+        category: String,
         quantity: Double,
         unit: String,
         purchaseDate: Date? = null,
@@ -184,10 +184,10 @@ class FarmRecordsViewModel : ViewModel() {
         val inventoryItem = Inventory(
             userId = currentUser.uid,
             itemName = itemName,
-            category = category,
+            category = null!!,
             quantity = quantity,
             unit = unit,
-            purchaseDate = purchaseDate,
+            purchaseDate = Date(),
             expiryDate = expiryDate,
             storageLocation = storageLocation,
             itemPhoto = itemPhoto,
@@ -277,3 +277,5 @@ enum class FarmRecordTab {
     HARVESTS,
     INVENTORY
 }
+
+

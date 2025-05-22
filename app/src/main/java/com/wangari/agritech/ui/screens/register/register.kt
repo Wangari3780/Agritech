@@ -1,6 +1,5 @@
 package com.wangari.agritech.ui.screens.register
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -21,8 +20,8 @@ import com.wangari.agritech.data.AuthViewModel
 
 @Composable
 fun RegisterScreen(
-    onSignupSuccess: () -> Unit,
-    onNavigateToLogin: () -> Unit,
+    onSignupSuccess: () -> Unit, // Added callback for successful signup
+    onNavigateToLogin: () -> Unit, // Added callback to navigate to login
     viewModel: AuthViewModel
 ) {
     val isLoading by viewModel.isLoading.collectAsState()
@@ -35,10 +34,10 @@ fun RegisterScreen(
     var phone by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
 
-    // Effect to handle successful signup
+    // Effect to handle successful signup and navigate
     LaunchedEffect(currentUser) {
         if (currentUser != null) {
-            onSignupSuccess()
+            onSignupSuccess() // Call the provided lambda for navigation
         }
     }
 
@@ -57,7 +56,7 @@ fun RegisterScreen(
             // Logo
             Image(
                 painter = painterResource(id = R.drawable.logo),
-                contentDescription = "FarmConnect Logo",
+                contentDescription = "Agritech Logo",
                 modifier = Modifier
                     .height(80.dp)
                     .fillMaxWidth(),
@@ -189,7 +188,7 @@ fun RegisterScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    TextButton(onClick = onNavigateToLogin) {
+                    TextButton(onClick = onNavigateToLogin) { // Corrected: Call the navigation callback
                         Text("Already have an account? Log In")
                     }
                 }

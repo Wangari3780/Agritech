@@ -59,6 +59,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.wangari.agritech.data.DashboardViewModel
 import com.wangari.agritech.data.UserViewModel
 import com.wangari.agritech.models.MarketStat
@@ -73,6 +75,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun DashboardScreen(
     onNavigate: (String) -> Unit,
+    navController: NavHostController,
     dashboardViewModel: DashboardViewModel = viewModel(),
     userViewModel: UserViewModel = viewModel()
 ) {
@@ -201,7 +204,7 @@ fun DashboardScreen(
                         scope.launch {
                             drawerState.close()
                         }
-                        onNavigate(AppDestinations.SETTINGS_ROUTE)
+                        navController.navigate(AppDestinations.SETTINGS_ROUTE)
                     },
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
                 )
@@ -230,18 +233,18 @@ fun DashboardScreen(
                     }
                 )
             },
-            floatingActionButton = {
-                androidx.compose.material3.FloatingActionButton(
-                    onClick = { onNavigate(AppDestinations.MY_PRODUCTS_ROUTE) },
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "Add Product"
-                    )
-                }
-            }
+//            floatingActionButton = {
+//                androidx.compose.material3.FloatingActionButton(
+//                    onClick = { onNavigate(AppDestinations.MY_PRODUCTS_ROUTE) },
+//                    containerColor = MaterialTheme.colorScheme.primary,
+//                    contentColor = MaterialTheme.colorScheme.onPrimary
+//                ) {
+//                    Icon(
+//                        imageVector = Icons.Default.Add,
+//                        contentDescription = "Add Product"
+//                    )
+//                }
+//            }
         ) { innerPadding ->
             Column(
                 modifier = Modifier
@@ -572,17 +575,3 @@ data class NavigationItem(
 fun String.toLowerCase(): String = this.lowercase()
 fun String.capitalize(): String = this.replaceFirstChar { it.uppercase() }
 
-
-@Preview(showBackground = true, widthDp = 360, heightDp = 1200) // Adjust height as needed for scrolling content
-@Composable
-fun DashboardScreenPreview() {
-    MaterialTheme { // Wrap in MaterialTheme to apply design system
-        DashboardScreen(
-            onNavigate = { destination ->
-                println("Navigating to: $destination") // Log navigation attempts in preview
-            },
-            dashboardViewModel = MockDashboardViewModel(), // Provide mock ViewModel
-            userViewModel = MockUserViewModel() // Provide mock ViewModel
-        )
-    }
-}

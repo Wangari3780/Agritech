@@ -13,7 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import com.wangari.agritech.data.AuthViewModel
 import com.wangari.agritech.repositories.UserRepository
 import com.wangari.agritech.ui.screens.dashboard.DashboardScreen
-import com.wangari.agritech.ui.screens.login.login
+import com.wangari.agritech.ui.screens.farmrecords.FarmRecordsScreen
+import com.wangari.agritech.ui.screens.login.LoginScreen
 import com.wangari.agritech.ui.screens.onboardingscreen.OnboardingScreen
 import com.wangari.agritech.ui.screens.register.RegisterScreen
 
@@ -24,17 +25,16 @@ fun AppNavHost(
     startDestination: String = AppDestinations.ROUTE_LOGIN,
     authViewModel: AuthViewModel = viewModel()
 ) {
-    val userRepository = remember { UserRepository() }
-    val currentUser by authViewModel.currentUser.collectAsState()
-
-    // If user is already logged in, navigate to dashboard
-    LaunchedEffect(currentUser) {
-        currentUser?.let {
-            navController.navigate(AppDestinations.ROUTE_HOME) {
-                popUpTo(AppDestinations.ROUTE_LOGIN) { inclusive = true }
-            }
-        }
-    }
+//    val userRepository = remember { UserRepository() }
+//    val currentUser by authViewModel.currentUser.collectAsState()
+//
+//    LaunchedEffect(currentUser) {
+//        currentUser?.let {
+//            navController.navigate(AppDestinations.ROUTE_HOME) {
+//                popUpTo(AppDestinations.ROUTE_LOGIN) { inclusive = true }
+//            }
+//        }
+//    }
 
     NavHost(
         navController = navController,
@@ -43,23 +43,23 @@ fun AppNavHost(
         composable(AppDestinations.ONBOARDING_ROUTE) {
             OnboardingScreen(
                 onGetStarted = {
-                    navController.navigate(AppDestinations.ROUTE_LOGIN)
+                    navController.navigate(AppDestinations.ROUTE_HOME)
                 }
             )
         }
 
         composable(AppDestinations.ROUTE_LOGIN) {
-            login(
-                onLoginSuccess = {
-                    navController.navigate(AppDestinations.ROUTE_HOME) {
-                        popUpTo(AppDestinations.ROUTE_LOGIN) { inclusive = true }
-                    }
-                },
-                onNavigateToSignup = {
-                    navController.navigate(AppDestinations.ROUTE_REGISTER)
-                },
-                viewModel = authViewModel
-            )
+            LoginScreen(navController)
+//                onLoginSuccess = {
+//                    navController.navigate(AppDestinations.ROUTE_HOME) {
+//                        popUpTo(AppDestinations.ROUTE_LOGIN) { inclusive = true }
+//                    }
+//                },
+//                onNavigateToSignup = {
+//                    navController.navigate(AppDestinations.ROUTE_REGISTER)
+//                },
+//                viewModel = authViewModel
+//            )
         }
 
         composable(AppDestinations.ROUTE_REGISTER) {
@@ -78,10 +78,14 @@ fun AppNavHost(
 
         composable(AppDestinations.ROUTE_HOME) {
             DashboardScreen(
+                navController = navController,
                 onNavigate = { route ->
                     navController.navigate(route)
                 }
             )
+        }
+        composable(AppDestinations.FARM_RECORDS_ROUTE) {
+            FarmRecordsScreen(navController::navigateUp)
         }
     }
     }

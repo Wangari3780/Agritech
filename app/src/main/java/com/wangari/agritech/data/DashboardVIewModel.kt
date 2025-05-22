@@ -41,10 +41,7 @@ class DashboardViewModel : ViewModel() {
             _isLoading.value = true
             _error.value = null // Clear previous errors
             try {
-                // Simulate network requests or data loading
-                // In a real app, you'd call your repository/data source here
 
-                // Example dummy data (replace with actual data fetching)
                 _weatherForecast.value = WeatherForecast(
                     location = "Nairobi",
                     current = com.wangari.agritech.models.CurrentWeather(temperature = 25.0, condition = "Sunny"),
@@ -73,8 +70,6 @@ class DashboardViewModel : ViewModel() {
 
     fun loadPriceTrends(period: PriceTrendPeriod) {
         viewModelScope.launch {
-            // Simulate fetching price trends based on the selected period
-            // In a real app, this would involve a network call with the 'period' parameter
             _isLoading.value = true
             _error.value = null
             try {

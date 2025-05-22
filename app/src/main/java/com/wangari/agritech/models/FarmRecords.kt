@@ -9,10 +9,10 @@ data class Expense(
     val id: String = "",
     val userId: String = "",
     val farmId: String = "",
-    val category: ExpenseCategory = ExpenseCategory.OTHER,
+    val Category: ExpenseCategory = ExpenseCategory.OTHER,
     val amount: Double = 0.0,
     val description: String = "",
-    val date: Date = Date(),
+    val Dates: Date = Date(),
     val receiptPhoto: String? = null,
     val createdAt: Date = Date()
 ) : Parcelable

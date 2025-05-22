@@ -2,7 +2,10 @@ package com.wangari.agritech.data
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.wangari.agritech.models.User
+import com.wangari.agritech.navigate.AppDestinations.ONBOARDING_ROUTE
+import com.wangari.agritech.navigate.AppDestinations.ROUTE_HOME
 import com.wangari.agritech.repositories.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -46,7 +49,8 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    fun signIn(email: String, password: String) {
+    fun signIn(navController: NavController,
+        email: String, password: String) {
         viewModelScope.launch {
             _isLoading.value = true
             _error.value = null
@@ -54,6 +58,7 @@ class AuthViewModel : ViewModel() {
             userRepository.signIn(email, password)
                 .onSuccess { user ->
                     _currentUser.value = user
+                    navController.navigate(ONBOARDING_ROUTE)
                 }
                 .onFailure { exception ->
                     _error.value = exception.message

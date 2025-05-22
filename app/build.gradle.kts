@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose.android)
     implementation("androidx.compose.material:material-icons-extended:1.6.7")
     implementation ("androidx.compose.animation:animation:1.6.7")
+    implementation(libs.firebase.database)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
