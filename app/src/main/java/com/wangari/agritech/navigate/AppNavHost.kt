@@ -11,30 +11,32 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.wangari.agritech.data.AuthViewModel
+import com.wangari.agritech.navigate.AppDestinations.ROUTE_HOME
 import com.wangari.agritech.repositories.UserRepository
 import com.wangari.agritech.ui.screens.dashboard.DashboardScreen
 import com.wangari.agritech.ui.screens.farmrecords.FarmRecordsScreen
 import com.wangari.agritech.ui.screens.login.LoginScreen
 import com.wangari.agritech.ui.screens.onboardingscreen.OnboardingScreen
 import com.wangari.agritech.ui.screens.register.RegisterScreen
+import com.wangari.agritech.ui.screens.splashscreen.SplashScreen
 
 
 @Composable
 fun AppNavHost(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = AppDestinations.ROUTE_LOGIN,
+    startDestination: String = AppDestinations.ROUTE_SPLASH,
     authViewModel: AuthViewModel = viewModel()
 ) {
-//    val userRepository = remember { UserRepository() }
-//    val currentUser by authViewModel.currentUser.collectAsState()
-//
-//    LaunchedEffect(currentUser) {
-//        currentUser?.let {
-//            navController.navigate(AppDestinations.ROUTE_HOME) {
-//                popUpTo(AppDestinations.ROUTE_LOGIN) { inclusive = true }
-//            }
-//        }
-//    }
+    val userRepository = remember { UserRepository() }
+    val currentUser by authViewModel.currentUser.collectAsState()
+
+    LaunchedEffect(currentUser) {
+        currentUser?.let {
+            navController.navigate(AppDestinations.ROUTE_HOME) {
+                popUpTo(AppDestinations.ROUTE_LOGIN) { inclusive = true }
+            }
+        }
+    }
 
     NavHost(
         navController = navController,
@@ -57,7 +59,7 @@ fun AppNavHost(
 //                },
 //                onNavigateToSignup = {
 //                    navController.navigate(AppDestinations.ROUTE_REGISTER)
-//                },
+//                }
 //                viewModel = authViewModel
 //            )
         }
@@ -86,6 +88,9 @@ fun AppNavHost(
         }
         composable(AppDestinations.FARM_RECORDS_ROUTE) {
             FarmRecordsScreen(navController::navigateUp)
+        }
+        composable(AppDestinations.ROUTE_SPLASH) {
+            SplashScreen(navController=navController, context = navController.context)
         }
     }
     }

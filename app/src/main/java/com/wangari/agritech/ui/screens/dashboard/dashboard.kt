@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Agriculture
 import androidx.compose.material.icons.filled.Assessment
+import androidx.compose.material.icons.filled.ExitToApp // Import for sign-out icon
 import androidx.compose.material.icons.filled.Inventory
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Receipt
@@ -29,7 +30,6 @@ import androidx.compose.material.icons.filled.Storefront
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -59,8 +59,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.google.firebase.auth.FirebaseAuth
 import com.wangari.agritech.data.DashboardViewModel
 import com.wangari.agritech.data.UserViewModel
 import com.wangari.agritech.models.MarketStat
@@ -69,6 +69,9 @@ import com.wangari.agritech.models.PriceTrendPeriod
 import com.wangari.agritech.models.Transaction
 import com.wangari.agritech.models.WeatherForecast
 import com.wangari.agritech.navigate.AppDestinations
+import com.wangari.agritech.navigate.AppDestinations.ROUTE_HOME
+import com.wangari.agritech.navigate.AppDestinations.ROUTE_LOGIN
+import com.wangari.agritech.navigate.AppDestinations.ROUTE_REGISTER
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -194,17 +197,21 @@ fun DashboardScreen(
                     )
                 }
 
-                Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.weight(1f)) // Pushes content above it to the top
 
+                // Sign Out Button/Item
                 NavigationDrawerItem(
-                    icon = { Icon(imageVector = Icons.Default.Settings, contentDescription = "Settings") },
-                    label = { Text(text = "Settings") },
+                    icon = { Icon(imageVector = Icons.Default.ExitToApp, contentDescription = "Sign Out") },
+                    label = { Text(text = "Sign Out") },
                     selected = false,
                     onClick = {
                         scope.launch {
-                            drawerState.close()
+                            drawerState.close() // Close drawer before navigating
+                            FirebaseAuth.getInstance().signOut()
+                            navController.navigate(ROUTE_LOGIN) {
+                                popUpTo(ROUTE_HOME) { inclusive = true } // Clear backstack
+                            }
                         }
-                        navController.navigate(AppDestinations.SETTINGS_ROUTE)
                     },
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
                 )
@@ -233,6 +240,7 @@ fun DashboardScreen(
                     }
                 )
             },
+
 //            floatingActionButton = {
 //                androidx.compose.material3.FloatingActionButton(
 //                    onClick = { onNavigate(AppDestinations.MY_PRODUCTS_ROUTE) },
@@ -574,4 +582,3 @@ data class NavigationItem(
 )
 fun String.toLowerCase(): String = this.lowercase()
 fun String.capitalize(): String = this.replaceFirstChar { it.uppercase() }
-
