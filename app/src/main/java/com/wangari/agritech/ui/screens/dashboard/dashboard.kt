@@ -26,6 +26,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Receipt
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.SmartToy
 import androidx.compose.material.icons.filled.Storefront
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -179,6 +180,11 @@ fun DashboardScreen(
                         title = "Transactions",
                         icon = Icons.Default.Receipt,
                         destination = AppDestinations.TRANSACTIONS_ROUTE
+                    ),
+                    NavigationItem(
+                        title= "Rafiki",
+                        icon = Icons.Default.SmartToy,
+                        destination = AppDestinations.RAFIKI
                     )
                 )
 
@@ -241,18 +247,18 @@ fun DashboardScreen(
                 )
             },
 
-//            floatingActionButton = {
-//                androidx.compose.material3.FloatingActionButton(
-//                    onClick = { onNavigate(AppDestinations.MY_PRODUCTS_ROUTE) },
-//                    containerColor = MaterialTheme.colorScheme.primary,
-//                    contentColor = MaterialTheme.colorScheme.onPrimary
-//                ) {
-//                    Icon(
-//                        imageVector = Icons.Default.Add,
-//                        contentDescription = "Add Product"
-//                    )
-//                }
-//            }
+            floatingActionButton = {
+                androidx.compose.material3.FloatingActionButton(
+                    onClick = { onNavigate(AppDestinations.MY_PRODUCTS_ROUTE) },
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add Product"
+                    )
+                }
+            }
         ) { innerPadding ->
             Column(
                 modifier = Modifier

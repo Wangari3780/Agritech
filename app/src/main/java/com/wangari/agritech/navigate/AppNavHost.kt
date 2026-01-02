@@ -17,6 +17,8 @@ import com.wangari.agritech.ui.screens.dashboard.DashboardScreen
 import com.wangari.agritech.ui.screens.farmrecords.FarmRecordsScreen
 import com.wangari.agritech.ui.screens.login.LoginScreen
 import com.wangari.agritech.ui.screens.onboardingscreen.OnboardingScreen
+import com.wangari.agritech.ui.screens.rafiki.GeminiNanoClient
+import com.wangari.agritech.ui.screens.rafiki.RafikiScreen
 import com.wangari.agritech.ui.screens.register.RegisterScreen
 import com.wangari.agritech.ui.screens.splashscreen.SplashScreen
 
@@ -88,6 +90,9 @@ fun AppNavHost(
         }
         composable(AppDestinations.FARM_RECORDS_ROUTE) {
             FarmRecordsScreen(navController::navigateUp)
+        }
+        composable(AppDestinations.RAFIKI) {
+            RafikiScreen(onNavigateBack = { navController.navigateUp() })
         }
         composable(AppDestinations.ROUTE_SPLASH) {
             SplashScreen(navController=navController, context = navController.context)

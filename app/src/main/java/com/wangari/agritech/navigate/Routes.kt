@@ -22,4 +22,5 @@ object AppDestinations {
     const val MY_PRODUCTS_ROUTE = "my_products"
     const val TRANSACTIONS_ROUTE = "transactions"
     const val SETTINGS_ROUTE = "settings"
+    const val RAFIKI ="RafikiScreen"
 }
